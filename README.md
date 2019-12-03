@@ -9,3 +9,5 @@ All scripts are written in Python 3.7, using only built-in functions, constants,
 |Days|
 |---|
 |[Day 1 - The Tyranny of the Rocket Equation](Days/Day%201%20-%20The%20Tyranny%20of%20the%20Rocket%20Equation)
+|[Day 2 - 1202 Program Alarm](Days/Day%202%20-%201202%20Program%20Alarm)
+|[Day 3 - Crossed Wires](Days/Day%203%20-%20Crossed%20Wires)
