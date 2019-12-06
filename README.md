@@ -12,3 +12,5 @@ All scripts are written in Python 3.7, using only built-in functions, constants,
 |[Day 2 - 1202 Program Alarm](Days/Day%202%20-%201202%20Program%20Alarm)
 |[Day 3 - Crossed Wires](Days/Day%203%20-%20Crossed%20Wires)
 |[Day 4 - Secure Container](Days/Day%204%20-%20Secure%20Container)
+|[Day 5 - Sunny with a Chance of Asteroids](Days/Day%205%20-%20Sunny%20with%20a%20Chance%20of%20Asteroids)
+|[Day 6 - Universal Orbit Map](Days/Day%206%20-%20Universal%20Orbit%20Map)
