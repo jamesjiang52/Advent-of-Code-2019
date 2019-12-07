@@ -14,3 +14,4 @@ All scripts are written in Python 3.7, using only built-in functions, constants,
 |[Day 4 - Secure Container](Days/Day%204%20-%20Secure%20Container)
 |[Day 5 - Sunny with a Chance of Asteroids](Days/Day%205%20-%20Sunny%20with%20a%20Chance%20of%20Asteroids)
 |[Day 6 - Universal Orbit Map](Days/Day%206%20-%20Universal%20Orbit%20Map)
+|[Day 7 - Amplification Circuit](Days/Day%207%20-%20Amplification%20Circuit)
