@@ -15,3 +15,4 @@ All scripts are written in Python 3.7, using only built-in functions, constants,
 |[Day 5 - Sunny with a Chance of Asteroids](Days/Day%205%20-%20Sunny%20with%20a%20Chance%20of%20Asteroids)
 |[Day 6 - Universal Orbit Map](Days/Day%206%20-%20Universal%20Orbit%20Map)
 |[Day 7 - Amplification Circuit](Days/Day%207%20-%20Amplification%20Circuit)
+|[Day 8 - Space Image Format](Days/Day%208%20-%20Space%20Image%20Format)
