@@ -16,3 +16,4 @@ All scripts are written in Python 3.7, using only built-in functions, constants,
 |[Day 6 - Universal Orbit Map](Days/Day%206%20-%20Universal%20Orbit%20Map)
 |[Day 7 - Amplification Circuit](Days/Day%207%20-%20Amplification%20Circuit)
 |[Day 8 - Space Image Format](Days/Day%208%20-%20Space%20Image%20Format)
+|[Day 9 - Sensor Boost](Days/Day%209%20-%20Sensor%20Boost)

@@ -1,3 +1,24 @@
+def get_f(f, i, mode):
+    try:
+        if mode == 0:
+            return f[f[i]]
+        if mode == 1:
+            return f[i]
+    except KeyError:
+        return 0
+    raise NotImplementedError
+
+
+def set_f(f, value, i, mode):
+    if mode == 0:
+        f[f[i]] = value
+        return
+    if mode == 1:
+        f[i] = value
+        return
+    raise NotImplementedError
+
+
 def main():
     f = [int(i) for i in [line.rstrip("\n") for line in open("Data.txt")][0].split(",")]
     input = 5
@@ -8,128 +29,46 @@ def main():
             immediate = int(str(f[i])[:-2])
         except ValueError:
             immediate = 0
-        immediate_1 = immediate % 10
-        immediate_2 = immediate//10 % 10
+        i1 = immediate % 10
+        i2 = immediate//10 % 10
         if opcode == 99:
             break
         elif opcode == 1:
-            if immediate_1 and immediate_2:
-                f[f[i + 3]] = f[i + 1] + f[i + 2]
-            elif immediate_1 and not immediate_2:
-                f[f[i + 3]] = f[i + 1] + f[f[i + 2]]
-            elif not immediate_1 and immediate_2:
-                f[f[i + 3]] = f[f[i + 1]] + f[i + 2]
-            else:
-                f[f[i + 3]] = f[f[i + 1]] + f[f[i + 2]]
+            set_f(f, get_f(f, i + 1, i1) + get_f(f, i + 2, i2), i + 3, 0)
             i += 4
         elif opcode == 2:
-            if immediate_1 and immediate_2:
-                f[f[i + 3]] = f[i + 1]*f[i + 2]
-            elif immediate_1 and not immediate_2:
-                f[f[i + 3]] = f[i + 1]*f[f[i + 2]]
-            elif not immediate_1 and immediate_2:
-                f[f[i + 3]] = f[f[i + 1]]*f[i + 2]
-            else:
-                f[f[i + 3]] = f[f[i + 1]]*f[f[i + 2]]
+            set_f(f, get_f(f, i + 1, i1)*get_f(f, i + 2, i2), i + 3, 0)
             i += 4
         elif opcode == 3:
-            f[f[i + 1]] = input
+            set_f(f, input, i + 1, 0)
             i += 2
         elif opcode == 4:
-            if immediate_1:
-                print(f[i + 1])
-            else:
-                print(f[f[i + 1]])
+            print(get_f(f, i + 1, i1))
             i += 2
         elif opcode == 5:
-            if immediate_1 and immediate_2:
-                if f[i + 1]:
-                    i = f[i + 2]
-                else:
-                    i += 3
-            elif immediate_1 and not immediate_2:
-                if f[i + 1]:
-                    i = f[f[i + 2]]
-                else:
-                    i += 3
-            elif not immediate_1 and immediate_2:
-                if f[f[i + 1]]:
-                    i = f[i + 2]
-                else:
-                    i += 3
-            elif not immediate_1 and not immediate_2:
-                if f[f[i + 1]]:
-                    i = f[f[i + 2]]
-                else:
-                    i += 3
+            if get_f(f, i + 1, i1):
+                i = get_f(f, i + 2, i2)
+            else:
+                i += 3
         elif opcode == 6:
-            if immediate_1 and immediate_2:
-                if not f[i + 1]:
-                    i = f[i + 2]
-                else:
-                    i += 3
-            elif immediate_1 and not immediate_2:
-                if not f[i + 1]:
-                    i = f[f[i + 2]]
-                else:
-                    i += 3
-            elif not immediate_1 and immediate_2:
-                if not f[f[i + 1]]:
-                    i = f[i + 2]
-                else:
-                    i += 3
-            elif not immediate_1 and not immediate_2:
-                if not f[f[i + 1]]:
-                    i = f[f[i + 2]]
-                else:
-                    i += 3
+            if not get_f(f, i + 1, i1):
+                i = get_f(f, i + 2, i2)
+            else:
+                i += 3
         elif opcode == 7:
-            if immediate_1 and immediate_2:
-                if f[i + 1] < f[i + 2]:
-                    f[f[i + 3]] = 1
-                else:
-                    f[f[i + 3]] = 0
-            elif immediate_1 and not immediate_2:
-                if f[i + 1] < f[f[i + 2]]:
-                    f[f[i + 3]] = 1
-                else:
-                    f[f[i + 3]] = 0
-            elif not immediate_1 and immediate_2:
-                if f[f[i + 1]] < f[i + 2]:
-                    f[f[i + 3]] = 1
-                else:
-                    f[f[i + 3]] = 0
-            elif not immediate_1 and not immediate_2:
-                if f[f[i + 1]] < f[f[i + 2]]:
-                    f[f[i + 3]] = 1
-                else:
-                    f[f[i + 3]] = 0
+            if get_f(f, i + 1, i1) < get_f(f, i + 2, i2):
+                set_f(f, 1, i + 3, 0)
+            else:
+                set_f(f, 0, i + 3, 0)
             i += 4
         elif opcode == 8:
-            if immediate_1 and immediate_2:
-                if f[i + 1] == f[i + 2]:
-                    f[f[i + 3]] = 1
-                else:
-                    f[f[i + 3]] = 0
-            elif immediate_1 and not immediate_2:
-                if f[i + 1] == f[f[i + 2]]:
-                    f[f[i + 3]] = 1
-                else:
-                    f[f[i + 3]] = 0
-            elif not immediate_1 and immediate_2:
-                if f[f[i + 1]] == f[i + 2]:
-                    f[f[i + 3]] = 1
-                else:
-                    f[f[i + 3]] = 0
-            elif not immediate_1 and not immediate_2:
-                if f[f[i + 1]] == f[f[i + 2]]:
-                    f[f[i + 3]] = 1
-                else:
-                    f[f[i + 3]] = 0
+            if get_f(f, i + 1, i1) == get_f(f, i + 2, i2):
+                set_f(f, 1, i + 3, 0)
+            else:
+                set_f(f, 0, i + 3, 0)
             i += 4
         else:
-            print("Something went wrong")
-            break
+            raise NotImplementedError
 
 
 if __name__ == "__main__":

@@ -6,6 +6,27 @@ f_all = [f_orig[:] for i in range(5)]
 max_output = 0
 
 
+def get_f(f, i, mode):
+    try:
+        if mode == 0:
+            return f[f[i]]
+        if mode == 1:
+            return f[i]
+    except KeyError:
+        return 0
+    raise NotImplementedError
+
+
+def set_f(f, value, i, mode):
+    if mode == 0:
+        f[f[i]] = value
+        return
+    if mode == 1:
+        f[i] = value
+        return
+    raise NotImplementedError
+
+
 def amplifier_loop(phase_setting):
     global f_all, max_output
     prev_output = 0
@@ -22,29 +43,15 @@ def amplifier_loop(phase_setting):
                 immediate = int(str(f[i])[:-2])
             except ValueError:
                 immediate = 0
-            immediate_1 = immediate % 10
-            immediate_2 = immediate//10 % 10
+            i1 = immediate % 10
+            i2 = immediate//10 % 10
             if opcode == 99:
                 return
             elif opcode == 1:
-                if immediate_1 and immediate_2:
-                    f[f[i + 3]] = f[i + 1] + f[i + 2]
-                elif immediate_1 and not immediate_2:
-                    f[f[i + 3]] = f[i + 1] + f[f[i + 2]]
-                elif not immediate_1 and immediate_2:
-                    f[f[i + 3]] = f[f[i + 1]] + f[i + 2]
-                else:
-                    f[f[i + 3]] = f[f[i + 1]] + f[f[i + 2]]
+                set_f(f, get_f(f, i + 1, i1) + get_f(f, i + 2, i2), i + 3, 0)
                 i += 4
             elif opcode == 2:
-                if immediate_1 and immediate_2:
-                    f[f[i + 3]] = f[i + 1]*f[i + 2]
-                elif immediate_1 and not immediate_2:
-                    f[f[i + 3]] = f[i + 1]*f[f[i + 2]]
-                elif not immediate_1 and immediate_2:
-                    f[f[i + 3]] = f[f[i + 1]]*f[i + 2]
-                else:
-                    f[f[i + 3]] = f[f[i + 1]]*f[f[i + 2]]
+                set_f(f, get_f(f, i + 1, i1)*get_f(f, i + 2, i2), i + 3, 0)
                 i += 4
             elif opcode == 3:
                 if not seen_phase_settings[j]:
@@ -57,106 +64,36 @@ def amplifier_loop(phase_setting):
                     break
                 i += 2
             elif opcode == 4:  # go to next amplifier
-                if immediate_1:
-                    prev_output = f[i + 1]
-                    if j == 4:
-                        max_output = max(max_output, f[i + 1])
-                else:
-                    prev_output = f[f[i + 1]]
-                    if j == 4:
-                        max_output = max(max_output, f[f[i + 1]])
+                prev_output = get_f(f, i + 1, i1)
+                if j == 4:
+                    max_output = max(max_output, prev_output)
                 seen_prev_outputs[(j + 1) % 5] = 0
                 positions[j] = i + 2
                 break
             elif opcode == 5:
-                if immediate_1 and immediate_2:
-                    if f[i + 1]:
-                        i = f[i + 2]
-                    else:
-                        i += 3
-                elif immediate_1 and not immediate_2:
-                    if f[i + 1]:
-                        i = f[f[i + 2]]
-                    else:
-                        i += 3
-                elif not immediate_1 and immediate_2:
-                    if f[f[i + 1]]:
-                        i = f[i + 2]
-                    else:
-                        i += 3
-                elif not immediate_1 and not immediate_2:
-                    if f[f[i + 1]]:
-                        i = f[f[i + 2]]
-                    else:
-                        i += 3
+                if get_f(f, i + 1, i1):
+                    i = get_f(f, i + 2, i2)
+                else:
+                    i += 3
             elif opcode == 6:
-                if immediate_1 and immediate_2:
-                    if not f[i + 1]:
-                        i = f[i + 2]
-                    else:
-                        i += 3
-                elif immediate_1 and not immediate_2:
-                    if not f[i + 1]:
-                        i = f[f[i + 2]]
-                    else:
-                        i += 3
-                elif not immediate_1 and immediate_2:
-                    if not f[f[i + 1]]:
-                        i = f[i + 2]
-                    else:
-                        i += 3
-                elif not immediate_1 and not immediate_2:
-                    if not f[f[i + 1]]:
-                        i = f[f[i + 2]]
-                    else:
-                        i += 3
+                if not get_f(f, i + 1, i1):
+                    i = get_f(f, i + 2, i2)
+                else:
+                    i += 3
             elif opcode == 7:
-                if immediate_1 and immediate_2:
-                    if f[i + 1] < f[i + 2]:
-                        f[f[i + 3]] = 1
-                    else:
-                        f[f[i + 3]] = 0
-                elif immediate_1 and not immediate_2:
-                    if f[i + 1] < f[f[i + 2]]:
-                        f[f[i + 3]] = 1
-                    else:
-                        f[f[i + 3]] = 0
-                elif not immediate_1 and immediate_2:
-                    if f[f[i + 1]] < f[i + 2]:
-                        f[f[i + 3]] = 1
-                    else:
-                        f[f[i + 3]] = 0
-                elif not immediate_1 and not immediate_2:
-                    if f[f[i + 1]] < f[f[i + 2]]:
-                        f[f[i + 3]] = 1
-                    else:
-                        f[f[i + 3]] = 0
+                if get_f(f, i + 1, i1) < get_f(f, i + 2, i2):
+                    set_f(f, 1, i + 3, 0)
+                else:
+                    set_f(f, 0, i + 3, 0)
                 i += 4
             elif opcode == 8:
-                if immediate_1 and immediate_2:
-                    if f[i + 1] == f[i + 2]:
-                        f[f[i + 3]] = 1
-                    else:
-                        f[f[i + 3]] = 0
-                elif immediate_1 and not immediate_2:
-                    if f[i + 1] == f[f[i + 2]]:
-                        f[f[i + 3]] = 1
-                    else:
-                        f[f[i + 3]] = 0
-                elif not immediate_1 and immediate_2:
-                    if f[f[i + 1]] == f[i + 2]:
-                        f[f[i + 3]] = 1
-                    else:
-                        f[f[i + 3]] = 0
-                elif not immediate_1 and not immediate_2:
-                    if f[f[i + 1]] == f[f[i + 2]]:
-                        f[f[i + 3]] = 1
-                    else:
-                        f[f[i + 3]] = 0
+                if get_f(f, i + 1, i1) == get_f(f, i + 2, i2):
+                    set_f(f, 1, i + 3, 0)
+                else:
+                    set_f(f, 0, i + 3, 0)
                 i += 4
             else:
-                print("Something went wrong")
-                break
+                raise NotImplementedError
 
         j = (j + 1) % 5
 
