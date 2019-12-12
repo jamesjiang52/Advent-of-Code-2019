@@ -29,7 +29,7 @@ def main():
     f = dict(enumerate(f))
     grid = {(0, 0): 1}
     current_pos = (0, 0)
-    dirs = [(1, 0), (0, 1), (-1, 0), (0, -1)]
+    dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
     current_dir_index = 0
     i = 0
     rel_base = 0
@@ -111,7 +111,7 @@ def main():
         y_bounds[1] = max(y_bounds[1], y)
 
     paint = [[0]*(x_bounds[1] - x_bounds[0] + 1) for i in range(y_bounds[1] - y_bounds[0] + 1)]
-    for y in range(y_bounds[1] - y_bounds[0] + 1, 0, -1):
+    for y in range(y_bounds[1] - y_bounds[0] + 1):
         for x in range(x_bounds[1] - x_bounds[0] + 1):
             if (x + x_bounds[0], y_bounds[1] - y) in grid:
                 if grid[(x + x_bounds[0], y_bounds[1] - y)] == 1:
