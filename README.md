@@ -17,3 +17,7 @@ All scripts are written in Python 3.7, using only built-in functions, constants,
 |[Day 7 - Amplification Circuit](Days/Day%207%20-%20Amplification%20Circuit)
 |[Day 8 - Space Image Format](Days/Day%208%20-%20Space%20Image%20Format)
 |[Day 9 - Sensor Boost](Days/Day%209%20-%20Sensor%20Boost)
+|[Day 10 - Monitoring Station](Days/Day%2010%20-%20Monitoring%20Station)
+|[Day 11 - Space Police](Days/Day%2011%20-%20Space%20Police)
+|[Day 12 - The N-Body Problem](Days/Day%2012%20-%20The%20N-Body%20Problem)
+|[Day 13 - Care Package](Days/Day%2013%20-%20Care%20Package)
