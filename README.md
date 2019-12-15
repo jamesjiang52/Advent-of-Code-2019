@@ -21,3 +21,5 @@ All scripts are written in Python 3.7, using only built-in functions, constants,
 |[Day 11 - Space Police](Days/Day%2011%20-%20Space%20Police)
 |[Day 12 - The N-Body Problem](Days/Day%2012%20-%20The%20N-Body%20Problem)
 |[Day 13 - Care Package](Days/Day%2013%20-%20Care%20Package)
+|[Day 14 - Space Stoichiometry](Days/Day%2014%20-%20Space%20Stoichiometry)
+|[Day 15 - Oxygen System](Days/Day%2015%20-%20Oxygen%20System)
