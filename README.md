@@ -23,3 +23,5 @@ All scripts are written in Python 3.7, using only built-in functions, constants,
 |[Day 13 - Care Package](Days/Day%2013%20-%20Care%20Package)
 |[Day 14 - Space Stoichiometry](Days/Day%2014%20-%20Space%20Stoichiometry)
 |[Day 15 - Oxygen System](Days/Day%2015%20-%20Oxygen%20System)
+|[Day 16 - Flawed Frequency Transmission](Days/Day%2016%20-%20Flawed%20Frequency%20Transmission)
+|[Day 17 - Set and Forget](Days/Day%2017%20-%20Set%20and%20Forget)
