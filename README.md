@@ -25,3 +25,5 @@ All scripts are written in Python 3.7, using only built-in functions, constants,
 |[Day 15 - Oxygen System](Days/Day%2015%20-%20Oxygen%20System)
 |[Day 16 - Flawed Frequency Transmission](Days/Day%2016%20-%20Flawed%20Frequency%20Transmission)
 |[Day 17 - Set and Forget](Days/Day%2017%20-%20Set%20and%20Forget)
+|[Day 18 - Many-Worlds Interpretation](Days/Day%2018%20-%20Many-Worlds%20Intepretation)
+|[Day 19 - Tractor Beam](Days/Day%2019%20-%20Tractor%20Beam)
